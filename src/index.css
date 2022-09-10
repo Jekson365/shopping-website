@@ -1,0 +1,48 @@
+body {
+  background-image: url("https://picsum.photos/1280/720");
+  background-size: cover;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center center;
+  overflow: hidden;
+}
+.overlay {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.368);
+  z-index: -1000000;
+}
+.component {
+  border-radius: 10px;
+  max-width: 350px;
+  padding: 20px;
+  margin-top: 100px;
+  backdrop-filter: blur(3px);
+  border: 2px solid white;
+  color: white;
+}
+.inp-field {
+  width: 100%;
+  text-align: center;
+  margin: 20px auto;
+}
+.inp-field input {
+  width: 20%;
+  padding: 10px 5px;
+  outline: 0;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 5px;
+  color: white;
+}
+button {
+  color: white;
+  background-color: transparent;
+  border: 2px solid white;
+  margin-left: 10px;
+  padding: 10px 15px;
+  border-radius: 3px;
+}
