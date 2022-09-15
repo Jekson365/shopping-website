@@ -24,11 +24,10 @@ export const Calculator = () => {
     return (
         <div>
             <p>
-                Total: {total}
+                Total: {total}$
             </p>
             <div className='buttons'>
                 <button className='btn btn-danger' onClick={clearCart}>Clear</button>
-                <button className='btn btn-primary'>Checkout</button>
             </div>
         </div>
     )

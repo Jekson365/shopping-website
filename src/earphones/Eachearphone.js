@@ -1,5 +1,6 @@
 import React from 'react'
 import { useContext } from 'react'
+import { Animated } from 'react-animated-css'
 import { Earphone } from '../speakers/Speakers'
 
 export const Eachearphone = ({content}) => {
@@ -7,7 +8,7 @@ export const Eachearphone = ({content}) => {
 
     return (
         <>
-            <div className='prod-item'>
+            <Animated className='prod-item' animationIn='slideInLeft' animationInDuration='700'>
                 <div className='item-col col-con'>
                     <h1 className='title'>{content.name}</h1>
                     <p className='description-prod'>
@@ -18,7 +19,7 @@ export const Eachearphone = ({content}) => {
                 <div className='item-col'>
                     <img src={content.img} />
                 </div>
-            </div>
+            </Animated>
         </>
     )
 }

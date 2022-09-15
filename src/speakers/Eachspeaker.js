@@ -11,7 +11,7 @@ export const Eachspeaker = ({ content }) => {
 
     return (
         <>
-            <div className='prod-item'>
+            <Animated className='prod-item' animationIn='slideInLeft' animationInDuration='700'>
                 <div className='item-col col-con'>
                     <h1 className='title'>{content.name}</h1>
                     <p className='description-prod'>
@@ -22,7 +22,7 @@ export const Eachspeaker = ({ content }) => {
                 <div className='item-col'>
                     <img src={content.img} />
                 </div>
-            </div>
+            </Animated>
         </>
     )
 }

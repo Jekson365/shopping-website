@@ -13,6 +13,7 @@ import { Earphones } from "./earphones/Earphones";
 import { Home } from "./components/Home";
 import Cart from "./cart/Cart";
 import { prettyDOM } from "@testing-library/react";
+import { Footer } from "./components/Footer";
 
 export const userContext = createContext()
 
@@ -24,9 +25,9 @@ function App() {
   const [prodArr, setProdArr] = useState(localStorage.getItem("speakers") ? JSON.parse(localStorage.getItem("speakers")) : [])
   const [EarphonesItem, setEarphonesItem] = useState(localStorage.getItem("earphones") ? JSON.parse(localStorage.getItem("earphones")) : [])
   const [total, setTotal] = useState(localStorage.getItem("total") ? JSON.parse(localStorage.getItem("total")) : 0)
-  const [amount,setAmount] = useState(localStorage.getItem("amount") ? JSON.parse(localStorage.getItem("amount")):0)
+  const [amount, setAmount] = useState(localStorage.getItem("amount") ? JSON.parse(localStorage.getItem("amount")) : 0)
   const [cart, setCart] = useState(localStorage.getItem("cart-item") ? JSON.parse(localStorage.getItem("cart-item")) : [])
-
+  const [toast, setToast] = useState()
 
 
   localStorage.setItem("cart-item", JSON.stringify(cart))
@@ -61,7 +62,12 @@ function App() {
   ]
   return (
     <>
-      <userContext.Provider value={{ selected, setSelected, items, total, setTotal, cart, setCart,amount,setAmount }}>
+      <userContext.Provider value={{
+        selected,
+        setSelected, items, total,
+        setTotal, cart, setCart,
+        amount, setAmount, toast, setToast
+      }}>
 
         <BrowserRouter>
           <Navbar />
@@ -72,6 +78,7 @@ function App() {
             <Route path='/earphones' element={<Earphones />} />
             <Route path='/cart' element={<Cart />} />
           </Routes>
+          <Footer />
         </BrowserRouter>
       </userContext.Provider>
     </>

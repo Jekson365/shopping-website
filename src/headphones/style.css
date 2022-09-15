@@ -95,11 +95,12 @@
     background-color: rgba(0, 0, 0, 0.535);
     top: 0;
     left: 0;
-    z-index: 0;
+    z-index: 6;
     position: absolute;
 }
 .selected-item {
     z-index: 100;
+    
     position: absolute;
     top: 50%;
     left: 50%;

@@ -82,7 +82,7 @@ export const Navbar = () => {
                 </nav>
                 <h3 className='cart'>
                     <p className='red-c'>{amount}</p>
-                    <a href='/cart'>
+                    <a href='/cart' className='cart-a' style={{"color":"red"}}>
                         <FaShoppingCart />
                     </a>
                 </h3>

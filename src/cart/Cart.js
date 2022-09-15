@@ -8,7 +8,9 @@ import './cart.css'
 
 const Cart = () => {
     const { cart, setCart } = useContext(userContext)
-    
+
+    const [list, setList] = useState()
+
     const [currentCart, setCurrentCart] = useState()
 
     const items = JSON.parse(localStorage.getItem('cart-item'))
@@ -17,7 +19,8 @@ const Cart = () => {
 
 
     if (items && speakers && earphones) {
-        var CART_ITEMS = items.concat(speakers,earphones)
+        var CART_ITEMS = items.concat(speakers, earphones)
+        console.log(CART_ITEMS)
     }
     // if (items && speakers && earphones) {
     //     console.log(CART_ITEMS)
@@ -28,30 +31,36 @@ const Cart = () => {
 
 
 
+
     return (
-        <div className='cart-container'>
-            <div className='cart-items'>
-                {!CART_ITEMS ?  <h1>Cart is empty</h1> : ""}
-                {CART_ITEMS && CART_ITEMS.map((single) => {
-                    return (
-                        <div className='each-cart-item'>
-                            <div className='image-content'>
-                                <img src={single.img} />
+        <>
+            <p className='header-title'>Cart</p>
+            <div className='cart-container'>
+                <div className='cart-items'>
+                    {!CART_ITEMS ? <h1>Cart is empty</h1> : ""}
+                    {CART_ITEMS && CART_ITEMS.map((single) => {
+                        return (
+                            <div className='each-cart-item'>
+                                <div className='image-content'>
+                                    <img src={single.img} />
+                                </div>
+                                <div className='desc'>
+                                    <p>{single.description}</p>
+                                </div>
+                                <div className='namep'>
+                                    <p>{single.name}</p>
+                                    <p><b>{single.price} $</b></p>
+                                </div>
                             </div>
-                            <div className='namep'>
-                                <p>{single.name}</p>
-                                <p><b>{single.price} $</b></p>
-                            </div>
-                            <button className='btn btn-danger'>delete</button>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
+                <div className='calculator'>
+                    <h3>Calculator</h3>
+                    <Calculator />
+                </div>
             </div>
-            <div className='calculator'>
-                <h3>Calculator</h3>
-                <Calculator/>
-            </div>
-        </div>
+        </>
     )
 }
 

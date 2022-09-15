@@ -57,8 +57,9 @@ export const Earphones = () => {
   return (
     <div>
       <Earphone.Provider value={{ selected, setSelected }}>
-
+        <Animated animationIn='flipInX' animationInDuration='1500'>
         <p className='header-title'>earphones</p>
+        </Animated>
         <Animated
           className={selected ? "selected-item" : "selected-item selected-item-deactive"}
           style={{ "top": window.scrollY - 150 }} animationInDuration="500">

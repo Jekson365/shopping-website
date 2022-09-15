@@ -4,8 +4,9 @@ import { useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
 import { Animated } from 'react-animated-css'
 import { useContext } from 'react'
-import {Eachspeaker} from './Eachspeaker'
+import { Eachspeaker } from './Eachspeaker'
 import { userContext } from '../App'
+import { Toast } from '../components/Toast'
 
 export const Earphone = createContext()
 
@@ -15,7 +16,7 @@ export const Speakers = () => {
 
   const [selected, setSelected] = useState()
 
-  const {total,setTotal,amount,setAmount} = useContext(userContext)
+  const { total, setTotal, amount, setAmount,toast } = useContext(userContext)
 
   const [prodArr, setProdArr] = useState(localStorage.getItem("speakers") ? JSON.parse(localStorage.getItem("speakers")) : [])
   localStorage.setItem("speakers", JSON.stringify(prodArr))
@@ -57,7 +58,9 @@ export const Speakers = () => {
 
   return (
     <div>
-      <p className='header-title'>speakers</p>
+      <Animated animationIn='flipInX' animationInDuration='1500'>
+        <p className='header-title'>speakers</p>
+      </Animated>
       <Earphone.Provider value={{ selected, setSelected }}>
 
         <Animated
@@ -70,7 +73,9 @@ export const Speakers = () => {
           <div className='image-container'>
             <img src={selected && selected.img} />
           </div>
+          <Toast toast={toast} />
           <p>{selected && selected.price} $</p>
+
           <button className='see-full-btn' onClick={() => addToCart(selected)}>add to cart</button>
         </Animated>
         <div className={selected ? "background-overlay" : ""}></div>
