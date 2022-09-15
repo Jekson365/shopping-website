@@ -1,71 +1,79 @@
 import { useEffect, useState } from "react";
 import { Animated } from "react-animated-css";
 import { FaCloud } from "react-icons/fa";
+import { createContext } from 'react';
+
+// components 
+import { BrowserRouter, Route, Routes, Router } from 'react-router-dom';
+
+import { Navbar } from "./components/Navbar";
+import { Headphones } from "./headphones/Headphones";
+import { Speakers } from "./speakers/Speakers";
+import { Earphones } from "./earphones/Earphones";
+import { Home } from "./components/Home";
+import Cart from "./cart/Cart";
+import { prettyDOM } from "@testing-library/react";
+
+export const userContext = createContext()
+
 
 
 function App() {
 
-  const [city, setCity] = useState("")
-  const [cityId, setCityId] = useState()
-  const [data, setData] = useState([])
+  const [selected, setSelected] = useState()
+  const [prodArr, setProdArr] = useState(localStorage.getItem("speakers") ? JSON.parse(localStorage.getItem("speakers")) : [])
+  const [EarphonesItem, setEarphonesItem] = useState(localStorage.getItem("earphones") ? JSON.parse(localStorage.getItem("earphones")) : [])
+  const [total, setTotal] = useState(localStorage.getItem("total") ? JSON.parse(localStorage.getItem("total")) : 0)
+  const [amount,setAmount] = useState(localStorage.getItem("amount") ? JSON.parse(localStorage.getItem("amount")):0)
+  const [cart, setCart] = useState(localStorage.getItem("cart-item") ? JSON.parse(localStorage.getItem("cart-item")) : [])
 
 
-  const API = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=7afcfde6057fac6b1fed87b8ed93729d`
 
-  const handleChange = (e) => {
-    setCityId(e.target.value)
-  }
-  const onSubmit = () => {
-      setCity(cityId)
+  localStorage.setItem("cart-item", JSON.stringify(cart))
+  localStorage.setItem("earphones", JSON.stringify(EarphonesItem))
+  localStorage.setItem("speakers", JSON.stringify(prodArr))
+  localStorage.setItem("total", JSON.stringify(total))
+  localStorage.setItem("amount", JSON.stringify(amount))
 
-
-      fetch(API)
-        .then((obj) => obj.json())
-        .then((res) => setData([
-          {
-            name: res.name,
-            temp: res.main.temp,
-            weather: res.weather,
-            wind: res.wind
-
-
-          }]
-        ))
-
-    }
-  
-
+  // headphones
+  const items = [
+    {
+      name: "xx99 mark || headphones",
+      description: "This huge e-commerce challenge will provide an incredible test for your front-end skills. Once you're done, you'll have an amazing project to add to your portfolio!",
+      img: "https://images.pexels.com/photos/205926/pexels-photo-205926.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      price: 159,
+      id: Math.floor(Math.random() * 1000000)
+    },
+    {
+      name: "xx99 mark | headphones",
+      description: "This huge e-commerce challenge will provide an incredible test for your front-end skills. Once you're done, you'll have an amazing project to add to your portfolio!",
+      img: "https://images.pexels.com/photos/610945/pexels-photo-610945.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      price: 120,
+      id: Math.floor(Math.random() * 1000000)
+    },
+    {
+      name: "x99 mark || headphones",
+      description: "This huge e-commerce challenge will provide an incredible test for your front-end skills. Once you're done, you'll have an amazing project to add to your portfolio!",
+      img: "https://images.pexels.com/photos/3945667/pexels-photo-3945667.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      price: 400,
+      id: Math.floor(Math.random() * 1000000)
+    },
+  ]
   return (
     <>
-      <form className="inp-field">
-        <input placeholder="Country,City,Region" value={cityId} onChange={handleChange} onKeyPress={onSubmit} />
-        <button type='button' onClick={onSubmit}>Submit</button>
-      </form>
+      <userContext.Provider value={{ selected, setSelected, items, total, setTotal, cart, setCart,amount,setAmount }}>
 
-      {data && data.map((each) => {
-        return (
-          <>
-            <div className="component container">
-              <div className="row">
-                <h3>{each.name}</h3>
-              </div>
-              <div className="row">
-                <p>{each.temp}</p>
-              </div>
-              <div className="row">
-                <p className="col-md-2" style={{ "width": "100%" }}>{each.weather[0].main} - {each.weather[0].description }
-                </p>
-                <h4>Wind</h4>
-                <div className="col-md-2">
-                  <p className="col-md-2">speed: {each.wind.speed}</p>
-                  <p className="col-md-2">deg: {each.wind.deg}</p>
-                </div>
-              </div>
-            </div>
-
-          </>
-        )
-      })}
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/headphones' element={<Headphones />} />
+            <Route path='/speakers' element={<Speakers />} />
+            <Route path='/earphones' element={<Earphones />} />
+            <Route path='/cart' element={<Cart />} />
+          </Routes>
+        </BrowserRouter>
+      </userContext.Provider>
     </>
 
   );
